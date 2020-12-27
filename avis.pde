@@ -3,6 +3,19 @@ SharedStack s,r;
 float  freq, mag;
 final int STEP = 10;
 
+void setup() {
+  size(1000,1000); 
+  s = new SharedStack();
+  r = new SharedStack();
+  Input i = new Input(s,r);
+  t = new Thread(i);
+  t.start();
+  rectMode(CORNERS);
+  textSize(32);
+  textAlign(LEFT,TOP);
+  background(0);
+}
+
 void left(float[] arr) {
   float x = STEP;
   pushMatrix();
@@ -45,19 +58,6 @@ void right(float[] arr) {
   popMatrix();
 }
 
-void setup() {
-  size(1000,1000); 
-  s = new SharedStack();
-  r = new SharedStack();
-  Input i = new Input(s,r);
-  t = new Thread(i);
-  t.start();
-  rectMode(CORNERS);
-  textSize(32);
-  textAlign(LEFT,TOP);
-  background(0);
-}
-
 void fr () {
   fill(0);
   rect(0,0,200,100);
@@ -69,13 +69,20 @@ void leftRaw (double[] arr) {
   pushMatrix();
   translate(0,300);
   fill(0);
-  rect(0,-100,780,100);
+  rect(0,-110,780,110);
   fill(0,255,255);
   int x = 10;
+  beginShape();
+  curveVertex(0,0);
+  curveVertex(0,0);
   for (int i = 0; i < arr.length; i+= 2) {
-    circle(x,((float)arr[i]/32768)*100,5);
+    //circle(x,((float)arr[i]/32768)*100,5);
+    curveVertex(x,((float)arr[i]/32768)*100);
     x+=3;
   }
+  curveVertex(x,0);
+  curveVertex(x,0);
+  endShape();
   popMatrix();
 }
 
@@ -83,13 +90,20 @@ void rightRaw (double[] arr) {
   pushMatrix();
   translate(0,600);
   fill(0);
-  rect(0,-100,780,100);
+  rect(0,-110,780,110);
   fill(255,128,0);
   int x = 10;
+  beginShape();
+  curveVertex(0,0);
+  curveVertex(0,0);
   for (int i = 0; i < arr.length; i+= 2) {
-    circle(x,((float)arr[i]/32768)*100,5);
+    //circle(x,((float)arr[i]/32768)*100,5);
+    curveVertex(x,((float)arr[i]/32768)*100);
     x+=3;
   }
+  curveVertex(x,0);
+  curveVertex(x,0);
+  endShape();
   popMatrix();
 }
 
